@@ -1,6 +1,6 @@
 export default function WithAuth(Components) {
   return function WithAuth(props) {
-    const isLogin = false;
+    const isLogin = true;
 
     if (!isLogin) return <div>Anda harus login</div>;
 
