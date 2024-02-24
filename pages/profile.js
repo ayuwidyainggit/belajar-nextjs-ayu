@@ -3,11 +3,11 @@ import Footer from "@/components/Footer";
 import Content from "@/components/Content";
 import Layout from "@/layout";
 
-export default function Home({ children }) {
+export default function Profile({ children }) {
   return (
     <>
       <Layout>
-        <p>homee</p>
+        <p>profile</p>
       </Layout>
     </>
   );
