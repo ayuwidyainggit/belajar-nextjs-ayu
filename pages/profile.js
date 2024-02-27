@@ -6,7 +6,7 @@ import Layout from "@/layout";
 export default function Profile({ children }) {
   return (
     <>
-      <Layout>
+      <Layout metaTitle="profile" metaDesc="semua informasi seputar profile">
         <p>profile</p>
       </Layout>
     </>

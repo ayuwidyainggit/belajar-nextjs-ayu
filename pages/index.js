@@ -6,7 +6,7 @@ import Layout from "@/layout";
 export default function Home({ children }) {
   return (
     <>
-      <Layout>
+      <Layout metaTitle="home">
         <p>homee</p>
       </Layout>
     </>
