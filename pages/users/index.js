@@ -1,5 +1,9 @@
-import Layout from "@/layout";
+// import Layout from "@/layout";
 import { useEffect } from "react";
+import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const LayoutComponent = dynamic(() => import("@/layout"));
 
 export default function index() {
   useEffect(() => {
@@ -9,8 +13,10 @@ export default function index() {
       .catch((err) => console.log("err =>", err));
   }, []);
   return (
-    <Layout metaTitle="user" metaDesc="semua informasi seputar user">
+    <LayoutComponent metaTitle="user" metaDesc="semua informasi seputar user">
       <p>ini user</p>
-    </Layout>
+      <Image src="/image.png" width={400} height={400} alt="next" />
+      <img src="/image.png" style={{ width: 400, height: 400 }} alt="next" />
+    </LayoutComponent>
   );
 }
