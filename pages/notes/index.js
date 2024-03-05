@@ -10,10 +10,13 @@ import {
   Heading,
   Text,
   Button,
+  Box,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Notes() {
+  const router = useRouter();
   const [notes, setNotes] = useState();
   useEffect(() => {
     async function fetchingData() {
@@ -29,46 +32,49 @@ export default function Notes() {
   console.log("notes nya ", notes);
   return (
     <>
-      <Layout metaTitle="home">
-        {/* {notes.data.map((item, index) => (
-          <Link href={`/notes/${item.id}`}>
-            <div style={{ border: "1px solid gray", marginBottom: "2px" }}>
-              <p>{item.title}</p>
-            </div>
-          </Link>
-        ))} */}
-        <Flex>
-          <Grid templateColumns="repeat(3, 1fr)" gap={5}>
-            {notes?.data?.map((item) => (
-              <GridItem>
-                <Card>
-                  <CardHeader>
-                    <Heading>{item.title}</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Text>{item.description}</Text>
-                  </CardBody>
-                  <CardFooter
-                    justify="space-between"
-                    flexWrap="wrap"
-                    sx={{
-                      "& > button": {
-                        minW: "136px",
-                      },
-                    }}
-                  >
-                    <Button flex="1" variant="ghost">
-                      Edit
-                    </Button>
-                    <Button flex="1" variant="ghost">
-                      Delete
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </GridItem>
-            ))}
-          </Grid>
-        </Flex>
+      <Layout metaTitle="Notes">
+        <Box padding="5">
+          <Flex justifyContent="end">
+            <Button
+              colorScheme="blue"
+              onClick={() => router.push("/notes/add")}
+            >
+              Add
+            </Button>
+          </Flex>
+          <Flex>
+            <Grid templateColumns="repeat(3, 1fr)" gap={5}>
+              {notes?.data?.map((item) => (
+                <GridItem>
+                  <Card>
+                    <CardHeader>
+                      <Heading>{item.title}</Heading>
+                    </CardHeader>
+                    <CardBody>
+                      <Text>{item.description}</Text>
+                    </CardBody>
+                    <CardFooter
+                      justify="space-between"
+                      flexWrap="wrap"
+                      sx={{
+                        "& > button": {
+                          minW: "136px",
+                        },
+                      }}
+                    >
+                      <Button flex="1" variant="ghost">
+                        Edit
+                      </Button>
+                      <Button flex="1" colorScheme="red">
+                        Delete
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </GridItem>
+              ))}
+            </Grid>
+          </Flex>
+        </Box>
       </Layout>
     </>
   );
