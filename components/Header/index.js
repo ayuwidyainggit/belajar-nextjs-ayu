@@ -15,6 +15,9 @@ function Header() {
         <li>
           <Link href="/users">User</Link>
         </li>
+        <li>
+          <Link href="/notes">Notes</Link>
+        </li>
       </ul>
     </div>
   );
