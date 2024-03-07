@@ -14,8 +14,12 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useQueries } from "@/hooks/useQueries";
 
 export default function Notes() {
+  const { data, isLoading, isError } = useQueries({
+    prefixUrl: "https://paace-f178cafcae7b.nevacloud.io/api/notes",
+  });
   const router = useRouter();
   const [notes, setNotes] = useState();
 
@@ -45,7 +49,6 @@ export default function Notes() {
     fetchingData();
   }, []);
 
-  console.log("notes nya ", notes);
   return (
     <>
       <Layout metaTitle="Notes">
