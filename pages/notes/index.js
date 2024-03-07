@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 export default function Notes() {
   const router = useRouter();
   const [notes, setNotes] = useState();
+
   useEffect(() => {
     async function fetchingData() {
       const res = await fetch(
@@ -45,13 +46,13 @@ export default function Notes() {
           <Flex>
             <Grid templateColumns="repeat(3, 1fr)" gap={5}>
               {notes?.data?.map((item) => (
-                <GridItem>
+                <GridItem key={item?.id}>
                   <Card>
                     <CardHeader>
-                      <Heading>{item.title}</Heading>
+                      <Heading>{item?.title}</Heading>
                     </CardHeader>
                     <CardBody>
-                      <Text>{item.description}</Text>
+                      <Text>{item?.description}</Text>
                     </CardBody>
                     <CardFooter
                       justify="space-between"
@@ -62,7 +63,11 @@ export default function Notes() {
                         },
                       }}
                     >
-                      <Button flex="1" variant="ghost">
+                      <Button
+                        onClick={() => router.push(`/notes/edit/${item?.id}`)}
+                        flex="1"
+                        variant="ghost"
+                      >
                         Edit
                       </Button>
                       <Button flex="1" colorScheme="red">
