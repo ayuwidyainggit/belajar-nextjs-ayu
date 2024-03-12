@@ -1,36 +1,41 @@
+import { headers } from "@/next.config";
 import { useCallback, useEffect, useState } from "react";
 
-export const useQueries = ({ prefixUrl = "" } = {}) => {
+export const useQueries = ({ prefixUrl = "", headers = {} } = {}) => {
   const [data, setData] = useState({
     data: null,
     isLoading: false,
     isError: false,
   });
-  const fetchingData = useCallback(async ({ url = "", method = "GET" }) => {
-    setData({
-      ...data,
-      isLoading: true,
-    });
-    try {
-      const response = await fetch(url, { method });
-      const result = await response.json();
+
+  const fetchingData = useCallback(
+    async ({ url = "", method = "GET", headers = {} }) => {
       setData({
         ...data,
-        data: result,
-        isLoading: false,
+        isLoading: true,
       });
-    } catch (error) {
-      setData({
-        ...data,
-        isError: true,
-        isLoading: false,
-      });
-    }
-  }, []);
+      try {
+        const response = await fetch(url, { method, headers });
+        const result = await response.json();
+        setData({
+          ...data,
+          data: result,
+          isLoading: false,
+        });
+      } catch (error) {
+        setData({
+          ...data,
+          isError: true,
+          isLoading: false,
+        });
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     if (prefixUrl) {
-      fetchingData({ url: prefixUrl });
+      fetchingData({ url: prefixUrl, headers: headers });
     }
   }, []);
 
