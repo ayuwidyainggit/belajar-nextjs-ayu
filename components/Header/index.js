@@ -7,9 +7,12 @@ import { useQueries } from "@/hooks/useQueries";
 import Cookies from "js-cookie";
 import { useMutation } from "@/hooks/useMutation";
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { UserContext } from "@/context/userContext";
 
 function Header() {
   const router = useRouter();
+  const userData = useContext(UserContext);
   const { mutate } = useMutation();
   const { data } = useQueries({
     prefixUrl: "https://paace-f178cafcae7b.nevacloud.io/api/user/me",
@@ -52,7 +55,7 @@ function Header() {
         <li>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              {data?.data?.name}
+              {userData?.name}
             </MenuButton>
             <MenuList>
               <MenuItem onClick={() => HandleLogout()}>Logout</MenuItem>
