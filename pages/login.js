@@ -6,10 +6,15 @@ import {
   FormControl,
   Input,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 export default function login() {
+  const toast = useToast();
   const { mutate } = useMutation();
+  const router = useRouter();
   const [payload, setPayload] = useState({
     email: "",
     password: "",
@@ -20,8 +25,25 @@ export default function login() {
       url: "https://paace-f178cafcae7b.nevacloud.io/api/login",
       payload,
     });
+    if (!response?.success) {
+      toast({
+        title: "Login Failure.",
+        description: "please input your email and password correctly",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+    } else {
+      Cookies.set("user_token", response?.data?.token, {
+        expires: new Date(response?.data?.expires_at),
+        path: "/",
+      });
 
-    console.log("login", response);
+      router.push("/");
+    }
+
+    // console.log("login", response);
   };
   return (
     <Flex alignItems="center" justifyContent="center">
