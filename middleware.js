@@ -7,11 +7,11 @@ export function middleware(request) {
   const isLoginPage = pathname.startsWith("/login");
 
   if (isCookiesExits === false && !isLoginPage) {
-    return NextResponse.redirect(new URL("/login", request.URL));
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   if (isCookiesExits && isLoginPage) {
-    return NextResponse.redirect(new URL("/", request.URL));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   // FLOW 1 : jika cookies ada dan user sedang di halaman Login , maka ==> redirect "/"
